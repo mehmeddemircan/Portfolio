@@ -1,4 +1,5 @@
-﻿using Portfolio.Entities.Common;
+﻿
+using Portfolio.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Portfolio.Core.DataAccess
 {
-    public interface IEntityRepository<T> where T : BaseEntity , new()
+    public interface IEntityRepository<T> where T : BaseEntity, new()
     {
 
         public Task<T> TAdd(T entity);

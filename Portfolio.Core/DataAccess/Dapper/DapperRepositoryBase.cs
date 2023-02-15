@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using Portfolio.Entities.Common;
-using Portfolio.Entities.Entity;
+using Portfolio.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

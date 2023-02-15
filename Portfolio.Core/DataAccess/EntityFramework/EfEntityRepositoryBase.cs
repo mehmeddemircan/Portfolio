@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Portfolio.Entities.Common;
+using Portfolio.Core.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace Portfolio.Core.DataAccess.EntityFramework
 {
     public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity>
-        where TEntity : BaseEntity, new()
+        where TEntity  : BaseEntity, new ()
         where TContext : DbContext, new()
     {
         public async Task<List<TEntity>> GetList(Expression<Func<TEntity, bool>> filter = null)
@@ -41,14 +42,30 @@ namespace Portfolio.Core.DataAccess.EntityFramework
             }
         }
 
-        public Task TDelete(int id)
+        public async Task TDelete(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new TContext())
+            {
+
+                var entity = await GetSingle((e) => e.Id == id);
+
+                
+                context.Set<TEntity>().Remove(entity);
+                await context.SaveChangesAsync(); 
+            
+            }
         }
 
-        public Task TUpdate(int id, TEntity entity)
+        public async Task TUpdate(int id, TEntity entity)
         {
-            throw new NotImplementedException();
+            using (var context = new TContext() )
+            {
+
+                var entityVar = await GetSingle((e) => e.Id == id);
+                entityVar.Id = id;
+                context.Set<TEntity>().Update(entity);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

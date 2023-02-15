@@ -1,4 +1,5 @@
 ﻿using Portfolio.Core.DataAccess;
+using Portfolio.Entities.DTOs;
 using Portfolio.Entities.Entity;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,11 @@ namespace Portfolio.DataAccess.Abstract
 {
     public interface IPersonRepository  : IEntityRepository<Person>
     {
+        public Task<PersonAbility> AddAbilityToPerson(PersonAbility personAbility);
+
+        public Task<List<PersonDto>> GetPeopleDetails();
+
+        public Task<PersonDto> GetOnePersonDetail(int personId); 
+
     }
 }

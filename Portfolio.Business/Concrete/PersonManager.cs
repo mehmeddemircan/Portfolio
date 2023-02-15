@@ -1,4 +1,6 @@
 ﻿using Portfolio.Business.Abstract;
+using Portfolio.DataAccess.Abstract;
+using Portfolio.Entities.DTOs;
 using Portfolio.Entities.Entity;
 using System;
 using System.Collections.Generic;
@@ -11,29 +13,52 @@ namespace Portfolio.Business.Concrete
 {
     public class PersonManager : IPersonService
     {
-        public Task<List<Person>> GetList(Expression<Func<Person, bool>> filter = null)
+
+        IPersonRepository _personRepository;
+
+        public PersonManager(IPersonRepository personRepository)
         {
-            throw new NotImplementedException();
+            _personRepository = personRepository;
         }
 
-        public Task<Person> GetSingle(Expression<Func<Person, bool>> filter)
+
+        public async Task<PersonAbility> AddAbilityToPerson(PersonAbility personAbility)
         {
-            throw new NotImplementedException();
+            return await _personRepository.AddAbilityToPerson(personAbility);
+        }
+        public async Task<List<Person>> GetList(Expression<Func<Person, bool>> filter = null)
+        {
+            return await _personRepository.GetList();
         }
 
-        public Task<Person> TAdd(Person entity)
+        public async Task<PersonDto> GetOnePersonDetail(int personId)
         {
-            throw new NotImplementedException();
+           return await _personRepository.GetOnePersonDetail(personId);
         }
 
-        public Task TDelete(int id)
+        public async Task<List<PersonDto>> GetPeopleDetails()
         {
-            throw new NotImplementedException();
+            return await _personRepository.GetPeopleDetails(); 
         }
 
-        public Task TUpdate(int id, Person entity)
+        public async Task<Person> GetSingle(Expression<Func<Person, bool>> filter)
         {
-            throw new NotImplementedException();
+            return await _personRepository.GetSingle(filter);
+        }
+
+        public async Task<Person> TAdd(Person entity)
+        {
+            return await _personRepository.TAdd(entity);
+        }
+
+        public async Task TDelete(int id)
+        {
+             await _personRepository.TDelete(id); 
+        }
+
+        public async Task TUpdate(int id, Person entity)
+        {
+            await _personRepository.TUpdate(id, entity); 
         }
     }
 }

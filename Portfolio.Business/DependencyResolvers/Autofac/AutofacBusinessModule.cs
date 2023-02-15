@@ -21,11 +21,15 @@ namespace Portfolio.Business.DependencyResolvers.Autofac
         protected override void Load(ContainerBuilder builder)
         {
 
+            builder.RegisterType<AbilityManager>().As<IAbilityService>();
+            builder.RegisterType<AbilityRepository>().As<IAbilityRepository>();
+
+
             builder.RegisterType<PersonManager>().As<IPersonService>();
             builder.RegisterType<PersonRepository>().As<IPersonRepository>();
 
-
-           
+            builder.RegisterType<CategoryManager>().As<ICategoryService>();
+            builder.RegisterType<CategoryRepository>().As<ICategoryRepository>();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

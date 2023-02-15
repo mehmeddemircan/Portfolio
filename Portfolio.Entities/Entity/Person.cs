@@ -1,4 +1,5 @@
-﻿using Portfolio.Entities.Common;
+﻿using Portfolio.Core.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,9 @@ namespace Portfolio.Entities.Entity
 
         public string Name { get; set; }
 
-        public ICollection<Ability>?  Abilities { get; set; }
+        public ICollection<PersonAbility>?  PersonAbilities { get; set; }
 
+
+        public ICollection<ProjectPerson>? ProjectPeople { get; set; }
     }
 }
